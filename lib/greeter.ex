@@ -1,4 +1,4 @@
-defmodule WhatsYourName do
+defmodule Greeter do
   def greet do
     name = "hello, I am Lary! What's your name?"
     respond(name)
