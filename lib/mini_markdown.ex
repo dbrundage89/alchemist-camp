@@ -6,6 +6,16 @@ defmodule MiniMarkdown do
     |> italics
     |> h2
     |> h1
+    |> small
+    |> big
+  end
+
+  def small(text) do
+    Regex.replace(~r/->(.*)<-/, text, "<small>\\1</small>")
+  end
+
+  def big(text) do
+    Regex.replace(~r/\+>(.*)<\+/, text, "<big>\\1</big>")
   end
 
   def h2(text) do
@@ -20,7 +30,6 @@ defmodule MiniMarkdown do
     Regex.replace(~r/\*\*(.*)\*\*/, text, "<strong>\\1</strong>")
   end
 
-  @spec italics(binary) :: binary
   def italics(text) do
     Regex.replace(~r/\*(.*)\*/, text, "<em>\\1</em>")
   end
@@ -29,7 +38,6 @@ defmodule MiniMarkdown do
     Regex.replace(~r/(\r\n|\r|\n|^)+([^\r\n]+)((\r\n|\r|\n)+$)?/, text, "<p>\\2</p>")
   end
 
-  @spec test_str :: <<_::1008>>
   def test_str do
     """
     #cookout#
@@ -40,6 +48,10 @@ defmodule MiniMarkdown do
     What did you think of it?
 
     asdf
+
+    ##responses##
+
+    I thought the burritos were very ->small<- but the fryz were +>gigantic<+!!!
     """
   end
 end
